@@ -48,6 +48,8 @@ This document provides a guildlines for Shultz API.
 * _Code:_ `400`
 * _Content_: `Error Message`
 
+---
+
 * **Shultz**
 
   * _URL_: `/shultz/`
@@ -65,6 +67,8 @@ This document provides a guildlines for Shultz API.
   * _Error Response:_
   * _Code:_ `400`
   * _Content_: `Error Message`
+
+---
 
 * **Shultz List**
   * _URL_: `/shultz-list/`
@@ -87,3 +91,5 @@ This document provides a guildlines for Shultz API.
   * _Error Response:_
   * _Code:_ `500`
   * _Content_: `Error Message`
+
+---

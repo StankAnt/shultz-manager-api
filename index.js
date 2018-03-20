@@ -56,10 +56,9 @@ router.post('/shultz', async ctx => {
 
 router.get('/shultz-list', async ctx => {
   try {
+    const shultzes = await Shultz.find();
     ctx.body = {
-      shultzes: Shultz.find()
-        .limit(10)
-        .sort(-1)
+      shultzes
     };
     ctx.status = httpStatus.OK;
   } catch (err) {

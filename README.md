@@ -12,11 +12,11 @@ This document provides a guildlines for Shultz API.
 
 ### Definition
 
-| Route        | HTTP Medthod | URL Params | Success Response | Error Response      | Description         |
-| ------------ | ------------ | ---------- | ---------------- | ------------------- | ------------------- |
-| init/        | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`  | Creates a new user  |
-| shultz/      | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`  | Takes a shultz      |
-| shultz-list/ | get          | n/a        | `OK: 200`        | `UNAUTHORIZED: 401` | Gives a shultz list |
+| Route        | HTTP Medthod | URL Params | Success Response | Error Response               | Description         |
+| ------------ | ------------ | ---------- | ---------------- | ---------------------------- | ------------------- |
+| init/        | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`           | Creates a new user  |
+| shultz/      | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`           | Takes a shultz      |
+| shultz-list/ | get          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500` | Gives a shultz list |
 
 ---
 

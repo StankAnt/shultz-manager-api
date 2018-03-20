@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       required: true,
-      type: String
+      type: String,
+      unique: true
     }
   },
   { versionKey: false }
@@ -23,10 +24,7 @@ const UserSchema = new mongoose.Schema(
 
 const ShultzSchema = new mongoose.Schema(
   {
-    userId: {
-      required: true,
-      type: String
-    }
+    _userId: mongoose.Schema.Types.ObjectId
   },
   { versionKey: false }
 );
@@ -40,13 +38,17 @@ router.post('/init', async ctx => {
     ctx.body = await user.save();
     ctx.status = httpStatus.CREATED;
   } catch (err) {
-    ctx.status = httpStatus.BAD_REQUEST;
+    if (err.code === 11000) {
+      ctx.body = { message: 'This user name already exists.' };
+      ctx.status = httpStatus.BAD_REQUEST;
+    } else {
+      ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+    }
   }
 });
-
 router.post('/shultz', async ctx => {
   try {
-    const shultz = new Shultz({ userId: ctx.request.body.userId });
+    const shultz = new Shultz({ _userId: new mongoose.Types.ObjectId(ctx.request.body.userId) });
     await shultz.save();
     ctx.status = httpStatus.CREATED;
   } catch (err) {
@@ -56,7 +58,30 @@ router.post('/shultz', async ctx => {
 
 router.get('/shultz-list', async ctx => {
   try {
-    const shultzes = await Shultz.find();
+    const shultzes = await Shultz.aggregate([
+      {
+        $lookup: {
+          as: 'user',
+          foreignField: '_id',
+          from: 'users',
+          localField: '_userId'
+        }
+      },
+      { $unwind: '$user' },
+      {
+        $group: {
+          _id: '$_id',
+          user: { $first: '$user.name' }
+        }
+      },
+      {
+        $sort: { _id: -1 }
+      },
+      {
+        $limit: 10
+      }
+    ]);
+
     ctx.body = {
       shultzes
     };

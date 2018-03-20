@@ -81,9 +81,7 @@ router.get('/shultz-list', async ctx => {
       }
     ]);
 
-    ctx.body = {
-      shultzes
-    };
+    ctx.body = shultzes;
     ctx.status = httpStatus.OK;
   } catch (err) {
     ctx.status = httpStatus.INTERNAL_SERVER_ERROR;

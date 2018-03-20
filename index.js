@@ -9,7 +9,6 @@ const app = new Koa();
 const router = new Router();
 
 mongoose.connect(process.env.DB);
-mongoose.set('debug', true);
 
 const UserSchema = new mongoose.Schema(
   {
@@ -39,11 +38,10 @@ router.post('/init', async ctx => {
     ctx.status = httpStatus.CREATED;
   } catch (err) {
     if (err.code === 11000) {
-      ctx.body = { message: 'This user name already exists.' };
-      ctx.status = httpStatus.BAD_REQUEST;
-    } else {
-      ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+      ctx.body = 'This user name already exists.';
     }
+    ctx.body = 'Request error.';
+    ctx.status = httpStatus.BAD_REQUEST;
   }
 });
 router.post('/shultz', async ctx => {
@@ -52,6 +50,7 @@ router.post('/shultz', async ctx => {
     await shultz.save();
     ctx.status = httpStatus.CREATED;
   } catch (err) {
+    ctx.body = 'Request error.';
     ctx.status = httpStatus.BAD_REQUEST;
   }
 });

@@ -23,7 +23,28 @@ const UserSchema = new mongoose.Schema(
 
 const ShultzSchema = new mongoose.Schema(
   {
-    _userId: mongoose.Schema.Types.ObjectId
+    _userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    },
+    date: {
+      type: Date,
+      default: Date.now
+    },
+    power: {
+      type: Number,
+      required: true
+    },
+    location: {
+      latitude: {
+        type: Number,
+        required: true
+      },
+      longitude: {
+        type: Number,
+        required: true
+      }
+    }
   },
   { versionKey: false }
 );
@@ -46,7 +67,11 @@ router.post('/init', async ctx => {
 });
 router.post('/shultz', async ctx => {
   try {
-    const shultz = new Shultz({ _userId: new mongoose.Types.ObjectId(ctx.request.body.userId) });
+    const shultz = new Shultz({
+      _userId: new mongoose.Types.ObjectId(ctx.request.body.userId),
+      power: ctx.request.body.power,
+      location: ctx.request.body.location
+    });
     await shultz.save();
     ctx.status = httpStatus.CREATED;
   } catch (err) {
@@ -70,7 +95,10 @@ router.get('/shultz-list', async ctx => {
       {
         $group: {
           _id: '$_id',
-          user: { $first: '$user.name' }
+          user: { $first: '$user.name' },
+          date: { $first: '$date' },
+          power: { $first: '$power' },
+          location: { $first: '$location' }
         }
       },
       {

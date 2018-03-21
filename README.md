@@ -59,6 +59,11 @@ This document provides a guildlines for Shultz API.
     ```javascript
     {
       userId: String;
+      power: Date;
+      location: {
+        latetude: Number;
+        longiude: Number;
+      }
     }
     ```
   * _Success Response_:
@@ -83,6 +88,12 @@ This document provides a guildlines for Shultz API.
             {
                 _id: String;
                 user: String;
+                power: Date;
+                date: Date;
+                location: {
+                    latetude: Number;
+                    longiude: Number;
+                }
             },
             ...
         ]

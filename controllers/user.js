@@ -1,15 +1,18 @@
-const User = require('../models/user');
+const httpStatus = require('http-status-codes');
+
+const { initUserService } = require('../services/user');
 
 const initUser = async ctx => {
   try {
-    const user = new User({ name: ctx.request.body.name });
-    ctx.body = await user.save();
+    const body = await initUserService(ctx.request.body);
+    ctx.body = body;
     ctx.status = httpStatus.CREATED;
   } catch (err) {
     if (err.code === 11000) {
       ctx.body = 'This user name already exists.';
+    } else {
+      ctx.body = 'Request error.';
     }
-    ctx.body = 'Request error.';
     ctx.status = httpStatus.BAD_REQUEST;
   }
 };

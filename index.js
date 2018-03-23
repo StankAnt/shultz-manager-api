@@ -10,6 +10,7 @@ const router = new Router();
 const { initUser } = require('./controllers/user');
 const { takeShultz, shultzList } = require('./controllers/shultz');
 
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DB);
 
 router.post('/init', initUser);

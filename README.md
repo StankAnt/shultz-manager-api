@@ -31,6 +31,7 @@ This document provides a guildlines for Shultz API.
     ```javascript
     {
       name: String;
+      pushToken: String;
     }
     ```
   * _Success Response_:
@@ -41,6 +42,7 @@ This document provides a guildlines for Shultz API.
 {
   _id: String;
   name: String;
+  pushToken: String;
 }
 ```
 

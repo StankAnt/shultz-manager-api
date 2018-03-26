@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
       type: String,
       unique: true
+    },
+    pushToken: {
+      required: true,
+      type: String
     }
   },
   { versionKey: false }

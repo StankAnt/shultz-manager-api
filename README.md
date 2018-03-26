@@ -61,7 +61,7 @@ This document provides a guildlines for Shultz API.
     ```javascript
     {
       userId: String;
-      power: Date;
+      power: Number;
       location: {
         latetude: Number;
         longiude: Number;

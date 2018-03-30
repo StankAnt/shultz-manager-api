@@ -2,7 +2,7 @@ const FCM = require('fcm-push');
 
 const fcm = new FCM(process.env.FCM_KEY);
 
-const message = (to, collapseKey, message) => ({
+const message = (to, message) => ({
   to: to,
   collapse_key: process.env.COLLAPSE_KEY,
   data: {
@@ -14,9 +14,9 @@ const message = (to, collapseKey, message) => ({
   }
 });
 
-const sendMessage = async (to, collapseKey, message) => {
+const sendMessage = async (to, message) => {
   try {
-    await fcm.send(message(to, collapseKey, message));
+    await fcm.send(message(to, message));
   } catch (err) {
     throw err;
   }

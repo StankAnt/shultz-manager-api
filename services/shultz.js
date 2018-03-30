@@ -14,10 +14,8 @@ const takeShultzService = async payload => {
     };
     await saveShultz(shultzData);
     const pushTokens = (await getTokens()).map(item => item.pushToken);
-    console.log(pushTokens);
     await fcm.sendMessage(pushTokens, `${payload.user.name} shultzed!`);
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };

@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = new Koa();
 const router = new Router();
 
-const { initUser } = require('./controllers/user');
+const { initUser, authUser, verifyUser } = require('./controllers/user');
 const { takeShultz, shultzList } = require('./controllers/shultz');
 
 mongoose.set('debug', true);
@@ -19,8 +19,9 @@ mongoose
   .catch(err => console.log('Db connection error'));
 
 router.post('/init', initUser);
-router.post('/shultz', takeShultz);
-router.get('/shultz-list', shultzList);
+router.post('/signin', authUser);
+router.post('/shultz', verifyUser, takeShultz);
+router.get('/shultz-list', verifyUser, shultzList);
 
 app.use(logger());
 app.use(bodyParser());

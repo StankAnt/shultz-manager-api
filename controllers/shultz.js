@@ -5,7 +5,7 @@ const { takeShultzService, shultzListServisce } = require('../services/shultz');
 
 const takeShultz = async ctx => {
   try {
-    await takeShultzService(ctx.request.body);
+    await takeShultzService({ user: ctx.state.user, data: ctx.request.body });
     ctx.status = httpStatus.CREATED;
   } catch (err) {
     ctx.body = 'Request error.';

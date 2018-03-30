@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const { saveShultz, shultzList } = require('../repositories/shultz');
 
-const takeShultzService = async data => {
+const takeShultzService = async payload => {
   try {
     const shultzData = {
-      _userId: new mongoose.Types.ObjectId(data.userId),
-      power: data.power,
-      location: data.location
+      _userId: new mongoose.Types.ObjectId(payload.user._id),
+      power: payload.data.power,
+      location: payload.data.location
     };
     await saveShultz(shultzData);
   } catch (err) {

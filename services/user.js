@@ -1,4 +1,4 @@
-const { saveUser } = require('../repositories/user');
+const { saveUser, findUser } = require('../repositories/user');
 const validation = require('../utils/validation');
 
 const initUserService = async data => {
@@ -11,7 +11,7 @@ const initUserService = async data => {
       password: data.password,
       pushToken: data.pushToken
     };
-    return await saveUser(userData);
+    await saveUser(userData);
   } catch (err) {
     throw err;
   }
@@ -25,4 +25,18 @@ const getTokensService = async () => {
   }
 };
 
-module.exports = { initUserService };
+const authUserService = async userData => {
+  try {
+    const user = await findUser({ name: userData.name });
+    const isMatch = await user.comparePassword(userData.password);
+    if (isMatch) {
+      return user;
+    } else {
+      throw new Error('Auth error.');
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { initUserService, authUserService };

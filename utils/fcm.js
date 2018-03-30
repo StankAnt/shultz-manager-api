@@ -2,22 +2,24 @@ const FCM = require('fcm-push');
 
 const fcm = new FCM(process.env.FCM_KEY);
 
-const message = (to, message) => ({
-  to: to,
+const createMessage = (to, message) => ({
+  registration_ids: to,
   collapse_key: process.env.COLLAPSE_KEY,
   data: {
-    message: message
+    message: message | 'Shultz!'
   },
   notification: {
     title: 'Shultz!',
-    body: message
+    body: message | 'Shultz!'
   }
 });
 
 const sendMessage = async (to, message) => {
   try {
-    await fcm.send(message(to, message));
+    await fcm.send(createMessage(to, message));
   } catch (err) {
-    throw err;
+    console.log(`FCM: ${err}`);
   }
 };
+
+module.exports = { sendMessage };

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const { saveShultz, shultzList } = require('../repositories/shultz');
+const { getTokens } = require('../repositories/user');
+
+const fcm = require('../utils/fcm');
 
 const takeShultzService = async payload => {
   try {
@@ -10,7 +13,11 @@ const takeShultzService = async payload => {
       location: payload.data.location
     };
     await saveShultz(shultzData);
+    const pushTokens = (await getTokens()).map(item => item.pushToken);
+    console.log(pushTokens);
+    await fcm.sendMessage(pushTokens, `${payload.user.name} shultzed!`);
   } catch (err) {
+    console.log(err);
     throw err;
   }
 };

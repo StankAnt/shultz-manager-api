@@ -83,7 +83,7 @@ This document provides a guildlines for Shultz API.
     {
       power: Number;
       location: {
-        latetude: Number;
+        latitude: Number;
         longiude: Number;
       }
     }
@@ -113,6 +113,10 @@ This document provides a guildlines for Shultz API.
     ```javascript
     {
       auth: String; /*token*/
+      filter: {
+        offset: Number;
+        limit: Number;
+      }
     }
     ```
   * _Success Response_:
@@ -127,7 +131,7 @@ This document provides a guildlines for Shultz API.
                 power: Date;
                 date: Date;
                 location: {
-                    latetude: Number;
+                    latitude: Number;
                     longiude: Number;
                 }
             },

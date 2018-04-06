@@ -10,7 +10,7 @@ const saveShultz = async shultzData => {
   }
 };
 
-const shultzList = async () => {
+const shultzList = async filter => {
   try {
     return await Shultz.aggregate([
       {
@@ -35,7 +35,10 @@ const shultzList = async () => {
         $sort: { _id: -1 }
       },
       {
-        $limit: 10
+        $limit: filter.limit || 10
+      },
+      {
+        $skip: filter.offset || 0
       }
     ]);
   } catch (err) {

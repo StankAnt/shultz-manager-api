@@ -15,7 +15,7 @@ const takeShultz = async ctx => {
 
 const shultzList = async ctx => {
   try {
-    ctx.body = await shultzListServisce();
+    ctx.body = await shultzListServisce(data.filter);
     ctx.status = httpStatus.OK;
   } catch (err) {
     ctx.status = httpStatus.INTERNAL_SERVER_ERROR;

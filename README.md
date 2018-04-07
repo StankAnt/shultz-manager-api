@@ -109,14 +109,19 @@ This document provides a guildlines for Shultz API.
   * _URL_: `/shultz-list/`
   * _Method_: `GET`
   * _URL Params_: None
-  * _Header Params_:
+  * _Data Params_:
     ```javascript
     {
-      auth: String; /*token*/
       filter: {
         offset: Number;
         limit: Number;
       }
+    }
+    ```
+  * _Header Params_:
+    ```javascript
+    {
+      auth: String; /*token*/
     }
     ```
   * _Success Response_:

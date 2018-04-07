@@ -107,7 +107,7 @@ This document provides a guildlines for Shultz API.
 
 * **Shultz List**
   * _URL_: `/shultz-list/`
-  * _Method_: `GET`
+  * _Method_: `POST`
   * _URL Params_: None
   * _Data Params_:
     ```javascript

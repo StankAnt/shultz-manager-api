@@ -21,7 +21,7 @@ mongoose
 router.post('/init', initUser);
 router.post('/signin', authUser);
 router.post('/shultz', verifyUser, takeShultz);
-router.get('/shultz-list', verifyUser, shultzList);
+router.post('/shultz-list', verifyUser, shultzList);
 
 app.use(logger());
 app.use(bodyParser());

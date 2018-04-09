@@ -46,4 +46,42 @@ const shultzList = async filter => {
   }
 };
 
-module.exports = { saveShultz, shultzList };
+const shultzListByCenter = async (center, radius) => {
+  try {
+    return await Shultz.aggregate([
+      {
+        $lookup: {
+          as: 'user',
+          foreignField: '_id',
+          from: 'users',
+          localField: '_userId'
+        }
+      },
+      { $unwind: '$user' },
+      {
+        $project: {
+          loc: ['$location.longitude', '$location.latitude'],
+          document: '$$ROOT'
+        }
+      },
+      {
+        $match: {
+          loc: { $geoWithin: { $centerSphere: [center, radius / process.env.EARTH_RADIUS] } }
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          user: { $first: '$document.user.name' },
+          date: { $first: '$document.date' },
+          power: { $first: '$document.power' },
+          location: { $first: '$document.location' }
+        }
+      }
+    ]);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { saveShultz, shultzList, shultzListByCenter };

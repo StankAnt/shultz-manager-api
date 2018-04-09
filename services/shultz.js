@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { saveShultz, shultzList } = require('../repositories/shultz');
+const { saveShultz, shultzList, shultzListByCenter } = require('../repositories/shultz');
 const { getTokens } = require('../repositories/user');
 
 const fcm = require('../utils/fcm');
@@ -29,7 +29,7 @@ const takeShultzService = async payload => {
   }
 };
 
-const shultzListServisce = async data => {
+const shultzListService = async data => {
   try {
     let filter = {};
 
@@ -47,4 +47,13 @@ const shultzListServisce = async data => {
   }
 };
 
-module.exports = { takeShultzService, shultzListServisce };
+const shultzListByCenterService = async data => {
+  try {
+    const center = [data.center.longitude, data.center.latitude];
+    return await shultzListByCenter(center, data.radius);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { takeShultzService, shultzListService, shultzListByCenterService };

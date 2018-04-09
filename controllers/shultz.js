@@ -1,7 +1,11 @@
 const httpStatus = require('http-status-codes');
 const mongoose = require('mongoose');
 
-const { takeShultzService, shultzListServisce } = require('../services/shultz');
+const {
+  takeShultzService,
+  shultzListService,
+  shultzListByCenterService
+} = require('../services/shultz');
 
 const takeShultz = async ctx => {
   try {
@@ -15,11 +19,20 @@ const takeShultz = async ctx => {
 
 const shultzList = async ctx => {
   try {
-    ctx.body = await shultzListServisce(ctx.request.body.filter);
+    ctx.body = await shultzListService(ctx.request.body.filter);
     ctx.status = httpStatus.OK;
   } catch (err) {
     ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
   }
 };
 
-module.exports = { takeShultz, shultzList };
+const shultzListByCenter = async ctx => {
+  try {
+    ctx.body = await shultzListByCenterService(ctx.request.body.filter);
+    ctx.status = httpStatus.OK;
+  } catch (err) {
+    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+  }
+};
+
+module.exports = { takeShultz, shultzList, shultzListByCenter };

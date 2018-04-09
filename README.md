@@ -84,7 +84,7 @@ This document provides a guildlines for Shultz API.
       power: Number;
       location: {
         latitude: Number;
-        longiude: Number;
+        longitude: Number;
       }
     }
     ```
@@ -137,7 +137,57 @@ This document provides a guildlines for Shultz API.
                 date: Date;
                 location: {
                     latitude: Number;
-                    longiude: Number;
+                    longitude: Number;
+                }
+            },
+            ...
+        ]
+    }
+    ```
+  * _Error Response:_
+  * _Code:_ `500`
+  * _Content_: `Error Message`
+  * _Code:_ `401`
+  * _Content_: `Unauthorized`
+
+---
+
+* **Shultz List By Center and Radius**
+  * _URL_: `/shultz-list-bycenter/`
+  * _Method_: `POST`
+  * _URL Params_: None
+  * _Data Params_:
+    ```javascript
+    {
+      filter: {
+        center: {
+          latitude: Number,
+          longitude: Number
+        };
+        radius: Number; /* KM */
+      }
+    }
+    ```
+  * _Header Params_:
+    ```javascript
+    {
+      auth: String; /*token*/
+    }
+    ```
+  * _Success Response_:
+  * _Code_: `200`
+  * _Content_:
+    ```javascript
+    {
+        [
+            {
+                _id: String;
+                user: String;
+                power: Date;
+                date: Date;
+                location: {
+                    latitude: Number;
+                    longitude: Number;
                 }
             },
             ...

@@ -9,7 +9,7 @@ const app = new Koa();
 const router = new Router();
 
 const { initUser, authUser, verifyUser } = require('./controllers/user');
-const { takeShultz, shultzList } = require('./controllers/shultz');
+const { takeShultz, shultzList, shultzListByCenter } = require('./controllers/shultz');
 
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
@@ -22,6 +22,7 @@ router.post('/init', initUser);
 router.post('/signin', authUser);
 router.post('/shultz', verifyUser, takeShultz);
 router.post('/shultz-list', verifyUser, shultzList);
+router.post('/shultz-list-bycenter', verifyUser, shultzListByCenter);
 
 app.use(logger());
 app.use(bodyParser());

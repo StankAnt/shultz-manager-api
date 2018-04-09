@@ -4,7 +4,7 @@ const Shultz = require('../models/shultz');
 const saveShultz = async shultzData => {
   try {
     const shultz = new Shultz(shultzData);
-    await shultz.save();
+    return await shultz.save();
   } catch (err) {
     throw err;
   }

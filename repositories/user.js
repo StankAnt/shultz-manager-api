@@ -18,9 +18,9 @@ const findUser = async userData => {
   }
 };
 
-const getTokens = async () => {
+const getTokens = async id => {
   try {
-    return await User.find({}, { pushToken: 1 });
+    return await User.find({ _id: { $ne: id } }, { pushToken: 1 });
   } catch (err) {
     throw err;
   }

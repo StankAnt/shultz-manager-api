@@ -17,8 +17,8 @@ This document provides a guildlines for Shultz API.
 | init/                 | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`                                | Creates a new user            |
 | signin/               | POST         | n/a        | `OK: 200`        | `UNAUTHORIZED: 401`                               | Sign In                       |
 | shultz/               | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`, `UNAUTHORIZED: 401`           | Takes a shultz                |
-| shultz-list/          | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list           |
-| shultz-list-bycenter/ | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list by center |
+| shultz-list/          | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list           |
+| shultz-list-bycenter/ | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list by center |
 
 ---
 

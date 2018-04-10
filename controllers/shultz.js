@@ -9,7 +9,10 @@ const {
 
 const takeShultz = async ctx => {
   try {
-    await takeShultzService({ user: ctx.state.user, data: ctx.request.body });
+    await takeShultzService({
+      user: ctx.state.user,
+      data: ctx.request.body
+    });
     ctx.status = httpStatus.CREATED;
   } catch (err) {
     ctx.body = 'Request error.';
@@ -35,4 +38,8 @@ const shultzListByCenter = async ctx => {
   }
 };
 
-module.exports = { takeShultz, shultzList, shultzListByCenter };
+module.exports = {
+  takeShultz,
+  shultzList,
+  shultzListByCenter
+};

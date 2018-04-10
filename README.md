@@ -57,6 +57,7 @@ This document provides a guildlines for Shultz API.
     {
       name: String;
       password: String; /*min lenght 8 symbols, at least one digit*/
+      pushToken: String; /*optional attribute (updates your push token)*/
     }
     ```
   * _Success Response_:

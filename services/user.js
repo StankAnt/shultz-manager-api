@@ -1,4 +1,4 @@
-const { saveUser, findUser } = require('../repositories/user');
+const { saveUser, findUser, updatePushToken } = require('../repositories/user');
 const validation = require('../utils/validation');
 
 const initUserService = async data => {
@@ -30,6 +30,10 @@ const authUserService = async userData => {
     const user = await findUser({ name: userData.name });
     const isMatch = await user.comparePassword(userData.password);
     if (isMatch) {
+      if (userData.pushToken) {
+        await updatePushToken(user._id, userData.pushToken);
+      }
+
       return user;
     } else {
       throw new Error('Auth error.');

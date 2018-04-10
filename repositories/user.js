@@ -26,4 +26,12 @@ const getTokens = async id => {
   }
 };
 
-module.exports = { saveUser, findUser, getTokens };
+const updatePushToken = async (id, pushToken) => {
+  try {
+    await User.findByIdAndUpdate(id, { $set: { pushToken } });
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { saveUser, findUser, getTokens, updatePushToken };

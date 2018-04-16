@@ -19,6 +19,7 @@ This document provides a guildlines for Shultz API.
 | shultz/               | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`, `UNAUTHORIZED: 401`           | Takes a shultz                |
 | shultz-list/          | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list           |
 | shultz-list-bycenter/ | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list by center |
+| shultz-types/         | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz types          |
 
 ---
 
@@ -191,6 +192,38 @@ This document provides a guildlines for Shultz API.
                     latitude: Number;
                     longitude: Number;
                 }
+            },
+            ...
+        ]
+    }
+    ```
+  * _Error Response:_
+  * _Code:_ `500`
+  * _Content_: `Error Message`
+  * _Code:_ `401`
+  * _Content_: `Unauthorized`
+
+---
+
+* **Shultz Types**
+  * _URL_: `/shultz-types/`
+  * _Method_: `GET`
+  * _URL Params_: None
+  * _Header Params_:
+    ```javascript
+    {
+      auth: String; /*token*/
+    }
+    ```
+  * _Success Response_:
+  * _Code_: `200`
+  * _Content_:
+    ```javascript
+    {
+        [
+            {
+                power: Number,
+                name: String
             },
             ...
         ]

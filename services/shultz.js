@@ -4,6 +4,7 @@ const { saveShultz, shultzList, shultzListByCenter } = require('../repositories/
 const { getTokens } = require('../repositories/user');
 
 const fcm = require('../utils/fcm');
+const { shultzTypes } = require('../utils/common');
 
 const takeShultzService = async payload => {
   try {
@@ -50,10 +51,34 @@ const shultzListService = async data => {
 const shultzListByCenterService = async data => {
   try {
     const center = [data.center.longitude, data.center.latitude];
-    return await shultzListByCenter(center, data.radius);
+    const rawList = await shultzListByCenter(center, data.radius);
+    return rawList.filter(item => {
+      const date = new Date();
+      return (
+        (item.power === shultzTypes.WHISPER.power && date - item.date <= 1000 * 60 * 5) ||
+        (item.power === shultzTypes.LIKE_A_GIRL.power && date - item.date <= 1000 * 60 * 10) ||
+        (item.power === shultzTypes.DAFAULT.power && date - item.date <= 1000 * 60 * 15) ||
+        (item.power === shultzTypes.SHULTZ.power && date - item.date <= 1000 * 60 * 20) ||
+        (item.power === shultzTypes.SKURCHIK.power && date - item.date <= 1000 * 60 * 25) ||
+        (item.power === shultzTypes.ALCO_SHULTZ.power && date - item.date <= 1000 * 60 * 30)
+      );
+    });
   } catch (err) {
     throw err;
   }
 };
 
-module.exports = { takeShultzService, shultzListService, shultzListByCenterService };
+const shultzTypesService = async () => {
+  try {
+    return Object.keys(shultzTypes).map(key => shultzTypes[key]);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  takeShultzService,
+  shultzListService,
+  shultzListByCenterService,
+  shultzTypesService
+};

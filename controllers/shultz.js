@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const {
   takeShultzService,
   shultzListService,
-  shultzListByCenterService
+  shultzListByCenterService,
+  shultzTypesService
 } = require('../services/shultz');
 
 const takeShultz = async ctx => {
@@ -38,8 +39,18 @@ const shultzListByCenter = async ctx => {
   }
 };
 
+const shultzTypes = async ctx => {
+  try {
+    ctx.body = await shultzTypesService();
+    ctx.status = httpStatus.OK;
+  } catch (err) {
+    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+  }
+};
+
 module.exports = {
   takeShultz,
   shultzList,
-  shultzListByCenter
+  shultzListByCenter,
+  shultzTypes
 };

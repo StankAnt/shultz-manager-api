@@ -8,20 +8,33 @@ const { shultzTypes } = require('../utils/common');
 
 const takeShultzService = async payload => {
   try {
-    const shultzData = {
-      _userId: new mongoose.Types.ObjectId(payload.user._id),
-      power: payload.data.power,
-      location: payload.data.location
-    };
-    const shultz = await saveShultz(shultzData);
-    const pushTokens = (await getTokens(shultzData._userId)).map(item => item.pushToken);
+    const pushTokens = (await getTokens(payload.user._id)).map(item => item.pushToken);
+    let shultz = {};
+
+    if (!Array.isArray(payload.data)) {
+      const shultzData = {
+        _userId: new mongoose.Types.ObjectId(payload.user._id),
+        power: payload.data.power,
+        location: payload.data.location
+      };
+
+      shultz = await saveShultz(shultzData);
+    } else {
+      const shultzesData = payload.data.map(item => ({
+        _userId: new mongoose.Types.ObjectId(payload.user._id),
+        power: item.power,
+        location: item.location
+      }));
+
+      shultz = (await saveShultz(shultzesData)).pop();
+    }
 
     const pushData = {
       _id: shultz._id,
       date: shultz.date,
-      user: payload.user.name,
-      power: payload.data.power,
-      location: payload.data.location
+      power: shultz.power,
+      location: shultz.location,
+      user: payload.user.name
     };
 
     await fcm.sendMessage(pushTokens, pushData);

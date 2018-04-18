@@ -82,7 +82,9 @@ This document provides a guildlines for Shultz API.
   * _Method_: `POST`
   * _URL Params_: None
   * _Data Params_:
+
     ```javascript
+    /*if user shultzed once*/
     {
       power: Number;
       location: {
@@ -90,7 +92,20 @@ This document provides a guildlines for Shultz API.
         longitude: Number;
       }
     }
+
+    /*if array of shultzes*/
+    [
+      {
+        power: Number;
+        location: {
+          latitude: Number;
+          longitude: Number;
+        }
+      },
+      ...
+    ]
     ```
+
   * _Header Params_:
     ```javascript
     {
@@ -131,21 +146,19 @@ This document provides a guildlines for Shultz API.
   * _Code_: `200`
   * _Content_:
     ```javascript
-    {
-        [
-            {
-                _id: String;
-                user: String;
-                power: Date;
-                date: Date;
-                location: {
-                    latitude: Number;
-                    longitude: Number;
-                }
-            },
-            ...
-        ]
-    }
+    [
+        {
+            _id: String;
+            user: String;
+            power: Date;
+            date: Date;
+            location: {
+                latitude: Number;
+                longitude: Number;
+            }
+        },
+        ...
+    ]
     ```
   * _Error Response:_
   * _Code:_ `500`
@@ -181,21 +194,19 @@ This document provides a guildlines for Shultz API.
   * _Code_: `200`
   * _Content_:
     ```javascript
-    {
-        [
-            {
-                _id: String;
-                user: String;
-                power: Date;
-                date: Date;
-                location: {
-                    latitude: Number;
-                    longitude: Number;
-                }
-            },
-            ...
-        ]
-    }
+    [
+        {
+            _id: String;
+            user: String;
+            power: Date;
+            date: Date;
+            location: {
+                latitude: Number;
+                longitude: Number;
+            }
+        },
+        ...
+    ]
     ```
   * _Error Response:_
   * _Code:_ `500`
@@ -219,15 +230,13 @@ This document provides a guildlines for Shultz API.
   * _Code_: `200`
   * _Content_:
     ```javascript
-    {
-        [
-            {
-                power: Number,
-                name: String
-            },
-            ...
-        ]
-    }
+    [
+        {
+            power: Number,
+            name: String
+        },
+        ...
+    ]
     ```
   * _Error Response:_
   * _Code:_ `500`

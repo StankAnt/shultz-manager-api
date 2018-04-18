@@ -24,6 +24,9 @@ const ShultzSchema = new mongoose.Schema(
         type: Number,
         required: true
       }
+    },
+    message: {
+      type: String
     }
   },
   { versionKey: false }

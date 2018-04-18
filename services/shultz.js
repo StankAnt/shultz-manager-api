@@ -14,28 +14,30 @@ const takeShultzService = async payload => {
     if (!Array.isArray(payload.data)) {
       const shultzData = {
         _userId: new mongoose.Types.ObjectId(payload.user._id),
-        power: payload.data.power,
-        location: payload.data.location
+        ...payload.data
       };
 
       shultz = await saveShultz(shultzData);
     } else {
       const shultzesData = payload.data.map(item => ({
         _userId: new mongoose.Types.ObjectId(payload.user._id),
-        power: item.power,
-        location: item.location
+        ...item
       }));
 
       shultz = (await saveShultz(shultzesData)).pop();
     }
 
-    const pushData = {
+    let pushData = {
       _id: shultz._id,
       date: shultz.date,
       power: shultz.power,
       location: shultz.location,
       user: payload.user.name
     };
+
+    if (shultz.message) {
+      pushData.message = shultz.message;
+    }
 
     await fcm.sendMessage(pushTokens, pushData);
   } catch (err) {

@@ -90,7 +90,8 @@ This document provides a guildlines for Shultz API.
       location: {
         latitude: Number;
         longitude: Number;
-      }
+      },
+      message: String /*optional*/
     }
 
     /*if array of shultzes*/
@@ -100,7 +101,8 @@ This document provides a guildlines for Shultz API.
         location: {
           latitude: Number;
           longitude: Number;
-        }
+        },
+        message: String /*optional*/
       },
       ...
     ]
@@ -155,7 +157,8 @@ This document provides a guildlines for Shultz API.
             location: {
                 latitude: Number;
                 longitude: Number;
-            }
+            },
+            message: String /*optional*/
         },
         ...
     ]
@@ -203,7 +206,8 @@ This document provides a guildlines for Shultz API.
             location: {
                 latitude: Number;
                 longitude: Number;
-            }
+            },
+            message: String /*optional*/
         },
         ...
     ]

@@ -1,5 +1,4 @@
 const httpStatus = require('http-status-codes');
-const mongoose = require('mongoose');
 
 const {
   takeShultzService,

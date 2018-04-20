@@ -10,7 +10,7 @@ const router = new Router();
 
 const { initUser, authUser, verifyUser } = require('./controllers/user');
 const { takeShultz, shultzList, shultzListByCenter, shultzTypes } = require('./controllers/shultz');
-const { commentUser } = require('./controllers/userComment');
+const { commentUser, commentList } = require('./controllers/userComment');
 
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
@@ -25,6 +25,7 @@ router.post('/shultz', verifyUser, takeShultz);
 router.post('/shultz-list', verifyUser, shultzList);
 router.post('/shultz-list-bycenter', verifyUser, shultzListByCenter);
 router.post('/comment-user', verifyUser, commentUser);
+router.post('/comment-list', verifyUser, commentList);
 router.get('/shultz-types', verifyUser, shultzTypes);
 
 app.use(logger());

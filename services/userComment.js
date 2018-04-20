@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { saveComment, getOneComment } = require('../repositories/userComment');
+const { saveComment, getOneComment, getComments } = require('../repositories/userComment');
 
 const { RequestError } = require('../utils/errors');
 const { errorTypes } = require('../utils/common');
@@ -8,8 +8,8 @@ const { errorTypes } = require('../utils/common');
 const commentUserService = async payload => {
   try {
     let commentData = {
-      _senderId: payload.user._id,
-      _userId: payload.data._userId,
+      _senderId: new mongoose.Types.ObjectId(payload.user._id),
+      _userId: new mongoose.Types.ObjectId(payload.data._userId),
       rate: payload.data.rate
     };
 
@@ -36,4 +36,12 @@ const commentUserService = async payload => {
   }
 };
 
-module.exports = { commentUserService };
+const commentListService = async filter => {
+  try {
+    return await getComments(filter);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { commentUserService, commentListService };

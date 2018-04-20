@@ -45,18 +45,8 @@ const takeShultzService = async payload => {
   }
 };
 
-const shultzListService = async data => {
+const shultzListService = async filter => {
   try {
-    let filter = {};
-
-    if (data.limit) {
-      filter.limit = data.limit;
-    }
-
-    if (data.offset) {
-      filter.offset = data.offset;
-    }
-
     return await shultzList(filter);
   } catch (err) {
     throw err;

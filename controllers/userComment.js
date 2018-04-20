@@ -1,4 +1,4 @@
-const httpStatus = require('http-status-codes');
+const httpStatusCodes = require('http-status-codes');
 
 const { commentUserService } = require('../services/userComment');
 
@@ -8,9 +8,9 @@ const commentUser = async ctx => {
       user: ctx.state.user,
       data: ctx.request.body
     });
-    ctx.status = httpStatus.OK;
+    ctx.status = httpStatusCodes.OK;
   } catch (err) {
-    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 

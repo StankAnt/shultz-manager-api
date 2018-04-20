@@ -13,7 +13,7 @@ const takeShultz = async ctx => {
       user: ctx.state.user,
       data: ctx.request.body
     });
-    ctx.status = httpStatus.CREATED;
+    ctx.status = httpStatusCodes.CREATED;
   } catch (err) {
     ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
@@ -22,7 +22,7 @@ const takeShultz = async ctx => {
 const shultzList = async ctx => {
   try {
     ctx.body = await shultzListService(ctx.request.body.filter);
-    ctx.status = httpStatus.OK;
+    ctx.status = httpStatusCodes.OK;
   } catch (err) {
     ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
@@ -31,7 +31,7 @@ const shultzList = async ctx => {
 const shultzListByCenter = async ctx => {
   try {
     ctx.body = await shultzListByCenterService(ctx.request.body.filter);
-    ctx.status = httpStatus.OK;
+    ctx.status = httpStatusCodes.OK;
   } catch (err) {
     ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
@@ -40,7 +40,7 @@ const shultzListByCenter = async ctx => {
 const shultzTypes = async ctx => {
   try {
     ctx.body = await shultzTypesService();
-    ctx.status = httpStatus.OK;
+    ctx.status = httpStatusCodes.OK;
   } catch (err) {
     ctx.status = httpStatusCodes.INTERNAL_SERVER_ERROR;
   }

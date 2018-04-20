@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const UserComment = require('../models/userComment');
 
-const { DataBaseError } = require('../utils/errors');
+const { DataBaseError, RequestError } = require('../utils/errors');
 const { errorTypes } = require('../utils/common');
 
 const saveComment = async commentData => {
@@ -15,10 +15,10 @@ const saveComment = async commentData => {
 
 const getComments = async filter => {
   try {
-    UserComment.aggregate([
+    return await UserComment.aggregate([
       {
         $lookup: {
-          as: 'senders',
+          as: 'sender',
           foreignField: '_id',
           from: 'users',
           localField: '_senderId'
@@ -30,4 +30,15 @@ const getComments = async filter => {
   }
 };
 
-module.exports = { saveComment };
+const getOneComment = async filter => {
+  try {
+    return await UserComment.findOne(filter);
+  } catch (err) {
+    if (err.name === 'CastError') {
+      throw new RequestError(errorTypes.INVALID_DATA);
+    }
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
+  }
+};
+
+module.exports = { saveComment, getOneComment };

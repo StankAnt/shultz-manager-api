@@ -3,6 +3,8 @@ const errorTypes = require('../common').errorTypes;
 
 class UntypedError extends Error {
   constructor(code) {
+    super();
+
     this.httpStatus = 200;
 
     switch (code) {

@@ -3,6 +3,8 @@ const errorTypes = require('../common').errorTypes;
 
 class RequestError extends Error {
   constructor(code) {
+    super();
+
     this.httpStatus = 200;
 
     switch (code) {
@@ -17,6 +19,9 @@ class RequestError extends Error {
         break;
       case errorTypes.INVALID_AUTH:
         this.httpStatus = httpStatusCodes.UNAUTHORIZED;
+        break;
+      case errorTypes.INVALID_DATA:
+        this.httpStatus = httpStatusCodes.BAD_REQUEST;
         break;
       default:
         this.httpStatus = httpStatusCodes.BAD_REQUEST;

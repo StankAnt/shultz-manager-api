@@ -8,7 +8,7 @@ const commentUser = async ctx => {
       user: ctx.state.user,
       data: ctx.request.body
     });
-    ctx.status = httpStatusCodes.OK;
+    ctx.status = httpStatusCodes.CREATED;
   } catch (err) {
     ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }

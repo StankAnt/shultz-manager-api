@@ -3,6 +3,8 @@ const errorTypes = require('../common').errorTypes;
 
 class DataBaseError extends Error {
   constructor(code) {
+    super();
+
     this.httpStatus = 200;
 
     switch (code) {

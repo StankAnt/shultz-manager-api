@@ -24,7 +24,7 @@ router.post('/signin', authUser);
 router.post('/shultz', verifyUser, takeShultz);
 router.post('/shultz-list', verifyUser, shultzList);
 router.post('/shultz-list-bycenter', verifyUser, shultzListByCenter);
-router.post('/commnet-user', verifyUser, commentUser);
+router.post('/comment-user', verifyUser, commentUser);
 router.get('/shultz-types', verifyUser, shultzTypes);
 
 app.use(logger());

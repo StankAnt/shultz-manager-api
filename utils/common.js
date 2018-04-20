@@ -6,3 +6,16 @@ module.exports.shultzTypes = {
   SKURCHIK: { power: 5, name: 'Skurchik' },
   ALCO_SHULTZ: { power: 6, name: 'Alco shultz' }
 };
+
+module.exports.errorTypes = {
+  // request errors
+  DUBLICATE_COMMENT: 100,
+  REQUIRED_PARAMS: 101,
+  VALIDATION_ERROR: 102,
+  INVALID_AUTH: 103,
+  // DB errors
+  DUPLICATE_RECORD: 200,
+  INTERNAL_DB_ERROR: 201,
+  // Untyped errors
+  FCM_ERROR: 300
+};

@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
 const UserComment = require('../models/userComment');
 
+const { DataBaseError } = require('../utils/errors');
+const { errorTypes } = require('../utils/common');
+
 const saveComment = async commentData => {
   const comment = new UserComment(commentData);
   try {
     await comment.save();
   } catch (err) {
-    throw err;
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
   }
 };
 
@@ -23,7 +26,7 @@ const getComments = async filter => {
       }
     ]);
   } catch (err) {
-    throw err;
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
   }
 };
 

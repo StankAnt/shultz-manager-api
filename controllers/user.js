@@ -1,4 +1,4 @@
-const httpStatus = require('http-status-codes');
+const httpStatusCodes = require('http-status-codes');
 const jwt = require('../utils/jwt');
 const { initUserService, authUserService } = require('../services/user');
 
@@ -7,12 +7,7 @@ const initUser = async ctx => {
     await initUserService(ctx.request.body);
     ctx.status = httpStatus.CREATED;
   } catch (err) {
-    if (err.code === 11000) {
-      ctx.body = 'This user name already exists.';
-    } else {
-      ctx.body = 'Request error.';
-    }
-    ctx.status = httpStatus.BAD_REQUEST;
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 
@@ -22,7 +17,7 @@ const authUser = async ctx => {
     ctx.body = { token: jwt.encode({ name: user.name, _id: user._id }) };
     ctx.status = httpStatus.OK;
   } catch (err) {
-    ctx.status = httpStatus.UNAUTHORIZED;
+    ctx.status = err.httpStatus || httpStatusCodes.UNAUTHORIZED;
   }
 };
 
@@ -31,7 +26,7 @@ const verifyUser = async (ctx, next) => {
     ctx.state.user = jwt.decode(ctx.request.headers.auth);
     await next();
   } catch (err) {
-    ctx.status = httpStatus.UNAUTHORIZED;
+    ctx.status = httpStatusCodes.UNAUTHORIZED;
   }
 };
 

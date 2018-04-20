@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const Shultz = require('../models/shultz');
 
+const { DataBaseError } = require('../utils/errors');
+const { errorTypes } = require('../utils/common');
+
 const saveShultz = async shultzData => {
   try {
     return await Shultz.create(shultzData);
   } catch (err) {
-    throw err;
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
   }
 };
 
@@ -41,7 +44,7 @@ const shultzList = async filter => {
       }
     ]);
   } catch (err) {
-    throw err;
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
   }
 };
 
@@ -79,7 +82,7 @@ const shultzListByCenter = async (center, radius) => {
       }
     ]);
   } catch (err) {
-    throw err;
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
   }
 };
 

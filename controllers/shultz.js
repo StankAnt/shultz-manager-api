@@ -1,4 +1,4 @@
-const httpStatus = require('http-status-codes');
+const httpStatusCodes = require('http-status-codes');
 
 const {
   takeShultzService,
@@ -15,8 +15,7 @@ const takeShultz = async ctx => {
     });
     ctx.status = httpStatus.CREATED;
   } catch (err) {
-    ctx.body = 'Request error.';
-    ctx.status = httpStatus.BAD_REQUEST;
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 
@@ -25,7 +24,7 @@ const shultzList = async ctx => {
     ctx.body = await shultzListService(ctx.request.body.filter);
     ctx.status = httpStatus.OK;
   } catch (err) {
-    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 
@@ -34,7 +33,7 @@ const shultzListByCenter = async ctx => {
     ctx.body = await shultzListByCenterService(ctx.request.body.filter);
     ctx.status = httpStatus.OK;
   } catch (err) {
-    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 
@@ -43,7 +42,7 @@ const shultzTypes = async ctx => {
     ctx.body = await shultzTypesService();
     ctx.status = httpStatus.OK;
   } catch (err) {
-    ctx.status = httpStatus.INTERNAL_SERVER_ERROR;
+    ctx.status = httpStatusCodes.INTERNAL_SERVER_ERROR;
   }
 };
 

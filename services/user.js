@@ -1,10 +1,13 @@
 const { saveUser, findUser, updatePushToken } = require('../repositories/user');
 const validation = require('../utils/validation');
 
+const { DataBaseError } = require('../utils/errors');
+const { errorTypes } = require('../utils/common');
+
 const initUserService = async data => {
   try {
     if (!validation.nameRegExp.test(data.name) || !validation.passwordRegExp.test(data.password)) {
-      throw new Error('Validation Error');
+      throw new DataBaseError(errorTypes.VALIDATION_ERROR);
     }
     const userData = {
       name: data.name,
@@ -12,14 +15,6 @@ const initUserService = async data => {
       pushToken: data.pushToken
     };
     await saveUser(userData);
-  } catch (err) {
-    throw err;
-  }
-};
-
-const getTokensService = async () => {
-  try {
-    return;
   } catch (err) {
     throw err;
   }
@@ -36,7 +31,7 @@ const authUserService = async userData => {
 
       return user;
     } else {
-      throw new Error('Auth error.');
+      throw new DataBaseError(errorTypes.INVALID_AUTH);
     }
   } catch (err) {
     throw err;

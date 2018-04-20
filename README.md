@@ -12,16 +12,16 @@ This document provides a guildlines for Shultz API.
 
 ### Definition
 
-| Route                 | HTTP Medthod | URL Params | Success Response | Error Response                                    | Description                   |
-| --------------------- | ------------ | ---------- | ---------------- | ------------------------------------------------- | ----------------------------- |
-| init/                 | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`                                | Creates a new user            |
-| signin/               | POST         | n/a        | `OK: 200`        | `UNAUTHORIZED: 401`                               | Sign In                       |
-| shultz/               | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`, `UNAUTHORIZED: 401`           | Takes a shultz                |
-| shultz-list/          | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list           |
-| shultz-list-bycenter/ | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz list by center |
-| comment-user/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Takes a comment about user    |
-| comment-list/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a user comment list     |
-| shultz-types/         | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401` | Gives a shultz types          |
+| Route                 | HTTP Medthod | URL Params | Success Response | Error Response                                                                       | Description                   |
+| --------------------- | ------------ | ---------- | ---------------- | ------------------------------------------------------------------------------------ | ----------------------------- |
+| init/                 | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`                                                                   | Creates a new user            |
+| signin/               | POST         | n/a        | `OK: 200`        | `UNAUTHORIZED: 401`                                                                  | Sign In                       |
+| shultz/               | POST         | n/a        | `CREATED: 201`   | `BAD_REQUEST: 400`, `UNAUTHORIZED: 401`                                              | Takes a shultz                |
+| shultz-list/          | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`                | Gives a shultz list           |
+| shultz-list-bycenter/ | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`                | Gives a shultz list by center |
+| comment-user/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`, `LOCKED: 423` | Takes a comment about user    |
+| comment-list/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`                | Gives a user comment list     |
+| shultz-types/         | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`                                    | Gives a shultz types          |
 
 ---
 
@@ -282,6 +282,8 @@ This document provides a guildlines for Shultz API.
   * _Content_: `Bad request`
   * _Code:_ `401`
   * _Content_: `Unauthorized`
+  * _Code:_ `423`
+  * _Content_: `Locked`
   * _Code:_ `500`
   * _Content_: `Intenal server error`
 

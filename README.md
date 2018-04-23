@@ -351,7 +351,14 @@ This document provides a guildlines for Shultz API.
     ```
   * _Success Response_:
   * _Code_: `200`
-  * _Content_: None
+  * _Content_:
+    ```javascript
+    {
+      _id: String,
+      Name: Number,
+      avgRate: Number
+    }
+    ```
   * _Error Response:_
   * _Code:_ `500`
   * _Content_: `Internal server error`

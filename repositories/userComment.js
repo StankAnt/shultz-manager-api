@@ -16,7 +16,6 @@ const saveComment = async commentData => {
 const getComments = async filter => {
   try {
     console.log(filter._userId);
-    // return await UserComment.find(filter);
     return await UserComment.aggregate([
       {
         $match: {
@@ -51,7 +50,6 @@ const getComments = async filter => {
       }
     ]);
   } catch (err) {
-    console.log(err);
     if (err.name === 'CastError') {
       throw new RequestError(errorTypes.INVALID_DATA);
     }

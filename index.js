@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = new Koa();
 const router = new Router();
 
-const { initUser, authUser, verifyUser } = require('./controllers/user');
+const { initUser, authUser, verifyUser, getUserProfile } = require('./controllers/user');
 const { takeShultz, shultzList, shultzListByCenter, shultzTypes } = require('./controllers/shultz');
 const { commentUser, commentList } = require('./controllers/userComment');
 
@@ -26,6 +26,7 @@ router.post('/shultz-list', verifyUser, shultzList);
 router.post('/shultz-list-bycenter', verifyUser, shultzListByCenter);
 router.post('/comment-user', verifyUser, commentUser);
 router.post('/comment-list', verifyUser, commentList);
+router.get('/user/:id', verifyUser, getUserProfile);
 router.get('/shultz-types', verifyUser, shultzTypes);
 
 app.use(logger());

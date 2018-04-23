@@ -1,4 +1,4 @@
-const { saveUser, findUser, updatePushToken } = require('../repositories/user');
+const { saveUser, findUser, updatePushToken, getUserProfile } = require('../repositories/user');
 const validation = require('../utils/validation');
 
 const { DataBaseError } = require('../utils/errors');
@@ -38,4 +38,12 @@ const authUserService = async userData => {
   }
 };
 
-module.exports = { initUserService, authUserService };
+const getUserProfileService = async id => {
+  try {
+    return await getUserProfile(id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = { initUserService, authUserService, getUserProfileService };

@@ -1,6 +1,6 @@
 const httpStatusCodes = require('http-status-codes');
 const jwt = require('../utils/jwt');
-const { initUserService, authUserService } = require('../services/user');
+const { initUserService, authUserService, getUserProfileService } = require('../services/user');
 
 const initUser = async ctx => {
   try {
@@ -21,6 +21,14 @@ const authUser = async ctx => {
   }
 };
 
+const getUserProfile = async ctx => {
+  try {
+    ctx.body = await getUserProfileService(ctx.params.id);
+  } catch (err) {
+    ctx.status = err.httpStatus || httpStatusCodes.INTERNAL_SERVER_ERROR;
+  }
+};
+
 const verifyUser = async (ctx, next) => {
   try {
     ctx.state.user = jwt.decode(ctx.request.headers.auth);
@@ -30,4 +38,4 @@ const verifyUser = async (ctx, next) => {
   }
 };
 
-module.exports = { initUser, authUser, verifyUser };
+module.exports = { initUser, authUser, verifyUser, getUserProfile };

@@ -41,4 +41,37 @@ const updatePushToken = async (id, pushToken) => {
   }
 };
 
-module.exports = { saveUser, findUser, getTokens, updatePushToken };
+const getUserProfile = async id => {
+  try {
+    return await User.aggregate([
+      {
+        $match: { _id: mongoose.Types.ObjectId(id) }
+      },
+      {
+        $lookup: {
+          as: 'comments',
+          foreignField: '_userId',
+          from: 'usercomments',
+          localField: '_id'
+        }
+      },
+      {
+        $unwind: '$comments'
+      },
+      {
+        $project: {
+          _id: true,
+          name: true,
+          avgRate: { $avg: '$comments.rate' }
+        }
+      }
+    ]);
+  } catch (err) {
+    if (err.name === 'CastError') {
+      throw new RequestError(errorTypes.INVALID_DATA);
+    }
+    throw new DataBaseError(errorTypes.INTERNAL_DB_ERROR);
+  }
+};
+
+module.exports = { saveUser, findUser, getTokens, updatePushToken, getUserProfile };

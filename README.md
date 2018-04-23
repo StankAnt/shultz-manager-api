@@ -22,6 +22,7 @@ This document provides a guildlines for Shultz API.
 | comment-user/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`, `LOCKED: 423` | Takes a comment about user    |
 | comment-list/         | POST         | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`                | Gives a user comment list     |
 | shultz-types/         | GET          | n/a        | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`                                    | Gives a shultz types          |
+| user/                 | GET          | /:id       | `OK: 200`        | `INTERNAL_SERVER_ERROR: 500`, `UNAUTHORIZED: 401`, `BAD_REQUEST: 400`                | Gives user info               |
 
 ---
 
@@ -222,37 +223,6 @@ This document provides a guildlines for Shultz API.
 
 ---
 
-* **Shultz Types**
-
-  * _URL_: `/shultz-types/`
-  * _Method_: `GET`
-  * _URL Params_: None
-  * _Header Params_:
-    ```javascript
-    {
-      auth: String; /*token*/
-    }
-    ```
-  * _Success Response_:
-  * _Code_: `200`
-  * _Content_:
-    ```javascript
-    [
-        {
-            power: Number,
-            name: String
-        },
-        ...
-    ]
-    ```
-  * _Error Response:_
-  * _Code:_ `500`
-  * _Content_: `Internal server error`
-  * _Code:_ `401`
-  * _Content_: `Unauthorized`
-
-  ---
-
 * **Comment User**
 
   * _URL_: `/comment-user/`
@@ -336,3 +306,58 @@ This document provides a guildlines for Shultz API.
   * _Content_: `Bad request`
 
   ---
+
+* **Shultz Types**
+
+  * _URL_: `/shultz-types/`
+  * _Method_: `GET`
+  * _URL Params_: None
+  * _Header Params_:
+    ```javascript
+    {
+      auth: String; /*token*/
+    }
+    ```
+  * _Success Response_:
+  * _Code_: `200`
+  * _Content_:
+    ```javascript
+    [
+        {
+            power: Number,
+            name: String
+        },
+        ...
+    ]
+    ```
+  * _Error Response:_
+  * _Code:_ `500`
+  * _Content_: `Internal server error`
+  * _Code:_ `401`
+  * _Content_: `Unauthorized`
+
+  ---
+
+- **User info**
+
+  * _URL_: `/user/:id`
+  * _Method_: `GET`
+  * _URL Params_: `/:id`
+  * _Header Params_:
+    ```javascript
+    {
+      auth: String; /*token*/
+    }
+    ```
+  * _Success Response_:
+  * _Code_: `200`
+  * _Content_: None
+  * _Error Response:_
+  * _Code:_ `500`
+  * _Content_: `Internal server error`
+  * _Code:_ `401`
+  * _Content_: `Unauthorized`
+  * _Code:_ `400`
+  * _Content_: `Bad request`
+
+  ***

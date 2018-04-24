@@ -5,6 +5,7 @@ const { getTokens } = require('../repositories/user');
 
 const fcm = require('../utils/fcm');
 const { shultzTypes } = require('../utils/common');
+const bot = require('../utils/telegramBot');
 
 const takeShultzService = async payload => {
   try {
@@ -39,6 +40,9 @@ const takeShultzService = async payload => {
       pushData.message = shultz.message;
     }
 
+    const type = Object.keys(shultzTypes).find(item => shultzTypes[item].power === shultz.power);
+
+    bot.sendVenueToGroup(pushData.location, 'Shultz', shultzTypes[type].name);
     await fcm.sendMessage(pushTokens, pushData);
   } catch (err) {
     throw err;

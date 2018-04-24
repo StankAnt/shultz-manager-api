@@ -5,12 +5,16 @@ const mongoose = require('mongoose');
 const bodyParser = require('koa-bodyparser');
 require('dotenv').config();
 
+const bot = require('./utils/telegramBot');
+
 const app = new Koa();
 const router = new Router();
 
 const { initUser, authUser, verifyUser, getUserProfile } = require('./controllers/user');
 const { takeShultz, shultzList, shultzListByCenter, shultzTypes } = require('./controllers/shultz');
 const { commentUser, commentList } = require('./controllers/userComment');
+
+bot.set(process.env.TELEGRAM_TOKEN, process.env.TELEGRAM_GROUP_ID);
 
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;

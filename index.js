@@ -14,7 +14,7 @@ const { initUser, authUser, verifyUser, getUserProfile } = require('./controller
 const { takeShultz, shultzList, shultzListByCenter, shultzTypes } = require('./controllers/shultz');
 const { commentUser, commentList } = require('./controllers/userComment');
 
-bot.set(process.env.TELEGRAM_TOKEN, process.env.TELEGRAM_GROUP_ID);
+// bot.set(process.env.TELEGRAM_TOKEN, process.env.TELEGRAM_GROUP_ID); cutted to better time
 
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
